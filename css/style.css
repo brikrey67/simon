@@ -1,0 +1,29 @@
+body {}
+
+header {}
+
+h1 {}
+
+.column {}
+
+#bodyWrapper {}
+
+#leftBody, #rightBody {}
+
+#consoleWrapper {}
+
+.console {}
+
+topLeftConsole {}
+topCenterConsole {}
+topRightConsole {}
+
+midLeftConsole {}
+midCenterConsole {}
+midRightConsole {}
+
+btmLeftConsole {}
+btmCenterConsole {}
+btmRightConsole {}
+
+footer {}
