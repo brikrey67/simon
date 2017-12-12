@@ -1,29 +1,127 @@
-body {}
+body {
+    min-height: 100vh;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-image: url("../images/brushed-alum.png");
+    background-repeat: repeat; 
+    background-color: #878b8d;
+}
 
-header {}
+header, footer {
+    min-height: 10vh;
+    background-color: #3d4042;
+    color: #FFFFFF;
+    text-align: left;
+    padding: 0px 10px;
+}
 
-h1 {}
+main {
+    display: flex;
+    flex-flow: row;
+    flex: 1;
+    color: #FFFFFF;
+    text-align: center;
+    margin: 20px;
+}
 
-.column {}
+#leftMain, #rightMain {
+    flex-grow: 1; 
+}
+#centerMain {
+    flex-grow: 2;
+    display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	justify-content: center;
+	align-items: stretch;
+}
 
-#bodyWrapper {}
+#topConsole, #btmConsole, #midConsole {
+    display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: space-around;
+	align-items: center;
+	align-content: space-between;
+    color: #FFFFFF;
+    text-align: center;
+    flex: 3 1 0;
+}
 
-#leftBody, #rightBody {}
+#midConsole {
+    flex: 1 1 0;
+}
 
-#consoleWrapper {}
+.left, .right {
+    width: 45%;
+}
 
-.console {}
+.top, .btm {
+    height: 100%;
+}
 
-topLeftConsole {}
-topCenterConsole {}
-topRightConsole {}
+#topLeftConsole {
+    background-image: url("../images/strange-bullseyes.png");
+    background-repeat: repeat; 
+    background-color: #1d5521;
+    border: 3px solid  #3d4042;
+    border-radius: 200px 0px 0px 0px;
+}
 
-midLeftConsole {}
-midCenterConsole {}
-midRightConsole {}
+#topRightConsole {
+    background-image: url("../images/strange-bullseyes.png");
+    background-repeat: repeat; 
+    background-color: #f14747;
+    border: 3px solid  #3d4042;
+    border-radius: 0px 200px 0px 0px;
+}
 
-btmLeftConsole {}
-btmCenterConsole {}
-btmRightConsole {}
+#btmRightConsole {
+    background-image: url("../images/strange-bullseyes.png");
+    background-repeat: repeat; 
+    background-color: #5367bd;
+    border: 3px solid  #3d4042;
+    border-radius: 0px 0px 200px 0px;
+}
 
-footer {}
+#btmLeftConsole {
+    background-image: url("../images/strange-bullseyes.png");
+    background-repeat: repeat; 
+    background-color: #f6f879;
+    border: 3px solid  #3d4042;
+    border-radius: 0px 0px 0px 200px;
+
+}
+
+h2 {
+    font-family: 'Orbitron', sans-serif;
+    color:  #3d4042;
+    font-weight: bold;
+}
+
+h1, h3 {
+    font-family: 'Orbitron', sans-serif;
+    color: #FFFFFF;
+}
+
+.label {
+    font-family: 'Orbitron', sans-serif;
+    color:  #3d4042
+}
+
+.digit {
+    font-family: 'Audiowide', cursive;
+    color: rgb(250, 161, 19);
+}
+
+#newGame {
+    font-size: 16px;
+    padding:5px;
+    font-family: 'Orbitron', sans-serif;
+    color:  #3d4042;
+    border: 3px solid  #3d4042;
+    border-radius: 5px 5px 5px 5px;
+
+}
