@@ -94,27 +94,25 @@ function getRandomInt() {
 
 //declared, hoisted functon that presents game sequence to the player
 function presentGameSequence(element, index, array) {
-    console.log ("Element: "+element)
-    //queue code within if derived from: https://stackoverflow.com/questions/4283141/jquery-change-background-color
     if (element === 1) {
         // $(`#tlc`).css(background="red").delay(200).css(background="yellow")
-        $(`#tlc`).toggleClass("tlcOn")
-        $(`#tlc`).toggleClass("tlcOff")       
+        console.log ("Element: "+element)
+        $(`#topLeftConsole`).toggleClass("tlcOff tlcOn")      
     }
     else if (element === 2) {
         // $(`#trc`).css(background="red").delay(200).css(background="yellow")
-        $(`#trc`).toggleClass("trcOn")
-        $(`#trc`).toggleClass("trcOff")  
+        console.log ("Element: "+element)
+        $(`#topRightConsole`).toggleClass("trcOff trcOn")
     }
     else if (element === 3) {
         // $(`#brc`).css(background="red").delay(200).css(background="yellow")
-        $(`#brc`).toggleClass("brcOn")
-        $(`#brc`).toggleClass("brcOff")  
+        console.log ("Element: "+element)
+        $(`#btmRightConsole`).toggleClass("brcOff brcOn")
     }
     else {
         // $(`#blc`).css(background="red").delay(200).css(background="yellow")
-        $(`#blc`).toggleClass("blcOn")
-        $(`#blc`).toggleClass("blcOff")  
+        console.log ("Element: "+element)
+        $(`#btmLeftConsole`).toggleClass("blcOff blcOn")
     }
 }
 

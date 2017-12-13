@@ -73,7 +73,7 @@ main {
 .trcOff {
     background-image: url("../images/strange-bullseyes.png");
     background-repeat: repeat; 
-    background-color: #f14747;
+    background-color:  #e46868;
     border: 3px solid  #3d4042;
     border-radius: 0px 200px 0px 0px;
 }
@@ -106,15 +106,27 @@ main {
     background-color: #1d5521;
     border: 3px solid  #3d4042;
     border-radius: 200px 0px 0px 0px;
+    animation-name: tlcOn;
+    animation-duration: 1s;
+    animation-iteration-count: 1;
+    animation-fill-mode: none;
 }
 
 @keyframes trcOn {
-    from {background-color: #f14747;;}
-    to {background-color:  #f706ce;;}
+    from {background-color: #e46868;}
+    to {background-color:  #ff01ee;;}
 }
 
 .trcOn {
-    /* need to write */
+    background-image: url("../images/strange-bullseyes.png");
+    background-repeat: repeat; 
+    background-color:  #e46868;
+    border: 3px solid  #3d4042;
+    border-radius: 0px 200px 0px 0px;
+    animation-name: trcOn;
+    animation-duration: 1s;
+    animation-iteration-count: 1;
+    animation-fill-mode: none;
 }
 
 @keyframes brcOn {
@@ -123,21 +135,33 @@ main {
 }
 
 .brcOn {
-        /* need to write */
+    background-image: url("../images/strange-bullseyes.png");
+    background-repeat: repeat; 
+    background-color: #5367bd;
+    border: 3px solid  #3d4042;
+    border-radius: 0px 0px 200px 0px;
+    animation-name: brcOn;
+    animation-duration: 1s;
+    animation-iteration-count: 1;
+    animation-fill-mode: none;
 }
 
 @keyframes blcOn {
     from {background-color: #f6f879;}
-    to {background-color:   #faf603;}
+    to {background-color:   #fa9703;}
 }
 
 .blcOn {
-        /* need to write */
+    background-image: url("../images/strange-bullseyes.png");
+    background-repeat: repeat; 
+    background-color: #f6f879;
+    border: 3px solid  #3d4042;
+    border-radius: 0px 0px 0px 200px;
+    animation-name: blcOn;
+    animation-duration: 1s;
+    animation-iteration-count: 1;
+    animation-fill-mode: none;
 }
-
-
-
-
 
 h2 {
     font-family: 'Orbitron', sans-serif;
