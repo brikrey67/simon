@@ -1,7 +1,8 @@
-var score = 5 // score of current game
-var recordScore = 10 // best overall score
-var gameOver = False  // game over flag
+var score = 20 // score of current game
+var recordScore = 15 // best overall score
+var gameOver = false  // game over flag
 var gameSequence = [] // array for game sequence
+var userSequence = [] //array of user-entered sequence
 
 $(document).ready(function(){
     // make sure js file is loading
@@ -11,7 +12,7 @@ $(document).ready(function(){
     $(`#newGame`).on({
         click: function(){
         //test listener by logging "button listining" to the console 
-        //console.log("button listening")
+        console.log("button listening")
 
         // 
         manageScore ()
@@ -22,7 +23,7 @@ $(document).ready(function(){
     $(`#topLeftConsole`).on({
         click: function(){
         //test listener by logging "button listining" to the console 
-        //console.log("green - listening")
+        console.log("green - listening")
         
         }
     })
@@ -31,7 +32,7 @@ $(document).ready(function(){
     $(`#topRightConsole`).on({
         click: function(){
         //test listener by logging "button listining" to the console 
-        //console.log("red - listening")
+        console.log("red - listening")
         
         }
     })
@@ -40,7 +41,7 @@ $(document).ready(function(){
     $(`#btmRightConsole`).on({
         click: function(){
         //test listener by logging "button listining" to the console 
-        //console.log("blue - listening")
+        console.log("blue - listening")
         
         }
     })
@@ -48,7 +49,7 @@ $(document).ready(function(){
     $(`#btmLeftConsole`).on({
         click: function(){
         //test listener by logging "button listining" to the console 
-        //console.log("yellow - listening")
+        console.log("yellow - listening")
         
         }
     })
@@ -62,15 +63,17 @@ function manageScore() {
     if (score > recordScore) {
         // update recordScore variable
         recordScore = score 
+        // verify function call
+        console.log("Record Score: "+recordScore)
         // update displayed recordScore
-
+        $(`#recordScore`).html(recordScore) 
     }
-    if (gameOver === True) {
+    if (gameOver === true) {
         // reset game score
         score = 0 
+        $(`#score`).html(score) 
         // verify handling of game record update
-        console.log("score: "+score+"; Record Score: "+recordScore)
-        
+        console.log("score: "+score)
         // reset game sequence
         gameSequence = [] 
         // verify gane sequence reset
