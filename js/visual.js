@@ -21,7 +21,7 @@ $(document).ready(function(){
     })
 
     // listener for top left console - green
-    $(`#topLeftConsole`).on({
+    $(`#tlc`).on({
         click: function(){
         //test listener by logging "button listining" to the console 
         console.log("green - listening")
@@ -30,7 +30,7 @@ $(document).ready(function(){
     })
 
     // listener for top right console - red
-    $(`#topRightConsole`).on({
+    $(`#trc`).on({
         click: function(){
         //test listener by logging "button listining" to the console 
         console.log("red - listening")
@@ -39,7 +39,7 @@ $(document).ready(function(){
     })
 
     // listener for botton right console - blue
-    $(`#btmRightConsole`).on({
+    $(`#brc`).on({
         click: function(){
         //test listener by logging "button listining" to the console 
         console.log("blue - listening")
@@ -47,7 +47,7 @@ $(document).ready(function(){
         }
     })
     // listener for botton left console - yellow
-    $(`#btmLeftConsole`).on({
+    $(`#blc`).on({
         click: function(){
         //test listener by logging "button listining" to the console 
         console.log("yellow - listening")
@@ -84,16 +84,6 @@ function manageScore() {
     buildSequence()
 }
 
-//declared, hoisted function that increments game pattern sequence
-function buildSequence() {
-    // get randome number between 1 and 4 to add to sequence
-    var newRandomNumber = getRandomInt()
-    gameSequence.push(newRandomNumber)
-    console.log(gameSequence)
-    //present array to player
-    gameSequence.forEach(presentSequence)
-}
-
 //declared, hoisted function that generate random number 1-4
 //code derived from: https://stackoverflow.com/questions/1527803/generating-random-whole-numbers-in-javascript-in-a-specific-range
 function getRandomInt() {
@@ -103,6 +93,37 @@ function getRandomInt() {
 }
 
 //declared, hoisted functon that presents game sequence to the player
-function presentGameSequence() {
-    console.log ("presentGameSequence called")
+function presentGameSequence(element, index, array) {
+    console.log ("Element: "+element)
+    //queue code within if derived from: https://stackoverflow.com/questions/4283141/jquery-change-background-color
+    if (element === 1) {
+        // $(`#tlc`).css(background="red").delay(200).css(background="yellow")
+        $(`#tlc`).toggleClass("tlcOn")
+        $(`#tlc`).toggleClass("tlcOff")       
+    }
+    else if (element === 2) {
+        // $(`#trc`).css(background="red").delay(200).css(background="yellow")
+        $(`#trc`).toggleClass("trcOn")
+        $(`#trc`).toggleClass("trcOff")  
+    }
+    else if (element === 3) {
+        // $(`#brc`).css(background="red").delay(200).css(background="yellow")
+        $(`#brc`).toggleClass("brcOn")
+        $(`#brc`).toggleClass("brcOff")  
+    }
+    else {
+        // $(`#blc`).css(background="red").delay(200).css(background="yellow")
+        $(`#blc`).toggleClass("blcOn")
+        $(`#blc`).toggleClass("blcOff")  
+    }
+}
+
+//declared, hoisted function that increments game pattern sequence
+function buildSequence() {
+    // get randome number between 1 and 4 to add to sequence
+    var newRandomNumber = getRandomInt()
+    gameSequence.push(newRandomNumber)
+    console.log(gameSequence)
+    //present array to player
+    gameSequence.forEach(presentGameSequence)
 }

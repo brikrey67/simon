@@ -62,7 +62,7 @@ main {
     height: 100%;
 }
 
-#topLeftConsole {
+.tlcOff {
     background-image: url("../images/strange-bullseyes.png");
     background-repeat: repeat; 
     background-color: #1d5521;
@@ -70,7 +70,7 @@ main {
     border-radius: 200px 0px 0px 0px;
 }
 
-#topRightConsole {
+.trcOff {
     background-image: url("../images/strange-bullseyes.png");
     background-repeat: repeat; 
     background-color: #f14747;
@@ -78,7 +78,7 @@ main {
     border-radius: 0px 200px 0px 0px;
 }
 
-#btmRightConsole {
+.brcOff {
     background-image: url("../images/strange-bullseyes.png");
     background-repeat: repeat; 
     background-color: #5367bd;
@@ -86,7 +86,7 @@ main {
     border-radius: 0px 0px 200px 0px;
 }
 
-#btmLeftConsole {
+.blcOff {
     background-image: url("../images/strange-bullseyes.png");
     background-repeat: repeat; 
     background-color: #f6f879;
@@ -94,6 +94,50 @@ main {
     border-radius: 0px 0px 0px 200px;
 
 }
+
+@keyframes tlcOn {
+    from {background-color: #1d5521;}
+    to {background-color: #06fa16;}
+}
+
+.tlcOn {
+    background-image: url("../images/strange-bullseyes.png");
+    background-repeat: repeat; 
+    background-color: #1d5521;
+    border: 3px solid  #3d4042;
+    border-radius: 200px 0px 0px 0px;
+}
+
+@keyframes trcOn {
+    from {background-color: #f14747;;}
+    to {background-color:  #f706ce;;}
+}
+
+.trcOn {
+    /* need to write */
+}
+
+@keyframes brcOn {
+    from {background-color: #5367bd;}
+    to {background-color:  #08f7eb;}
+}
+
+.brcOn {
+        /* need to write */
+}
+
+@keyframes blcOn {
+    from {background-color: #f6f879;}
+    to {background-color:   #faf603;}
+}
+
+.blcOn {
+        /* need to write */
+}
+
+
+
+
 
 h2 {
     font-family: 'Orbitron', sans-serif;
