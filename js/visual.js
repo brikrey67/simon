@@ -13,13 +13,14 @@ $(document).ready(function(){
         click: function(){
         //test listener by logging "button listining" to the console 
         console.log("button listening")
-
-        // 
+        //reset gameOver variable
+        gameOver = false
+        // update score records
         manageScore ()
         }
     })
 
-    // track clicks to top left console - green
+    // listener for top left console - green
     $(`#topLeftConsole`).on({
         click: function(){
         //test listener by logging "button listining" to the console 
@@ -28,7 +29,7 @@ $(document).ready(function(){
         }
     })
 
-    // track clicks to top right console - red
+    // listener for top right console - red
     $(`#topRightConsole`).on({
         click: function(){
         //test listener by logging "button listining" to the console 
@@ -37,7 +38,7 @@ $(document).ready(function(){
         }
     })
 
-    // track clicks to botton right console - blue
+    // listener for botton right console - blue
     $(`#btmRightConsole`).on({
         click: function(){
         //test listener by logging "button listining" to the console 
@@ -45,7 +46,7 @@ $(document).ready(function(){
         
         }
     })
-    // track clicks to botton left console - yellow
+    // listener for botton left console - yellow
     $(`#btmLeftConsole`).on({
         click: function(){
         //test listener by logging "button listining" to the console 
@@ -78,11 +79,30 @@ function manageScore() {
         gameSequence = [] 
         // verify gane sequence reset
         console.log(gameSequence)
+        return
     }
     buildSequence()
 }
 
-//declared, hoisted function
+//declared, hoisted function that increments game pattern sequence
 function buildSequence() {
+    // get randome number between 1 and 4 to add to sequence
+    var newRandomNumber = getRandomInt()
+    gameSequence.push(newRandomNumber)
+    console.log(gameSequence)
+    //present array to player
+    gameSequence.forEach(presentSequence)
+}
 
+//declared, hoisted function that generate random number 1-4
+//code derived from: https://stackoverflow.com/questions/1527803/generating-random-whole-numbers-in-javascript-in-a-specific-range
+function getRandomInt() {
+    var min = 1
+    var max = 4
+    return Math.floor(Math.random() * (max - min + 1)) + min
+}
+
+//declared, hoisted functon that presents game sequence to the player
+function presentGameSequence() {
+    console.log ("presentGameSequence called")
 }
