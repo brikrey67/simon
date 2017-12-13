@@ -2,7 +2,6 @@ var score = 20 // score of current game
 var recordScore = 15 // best overall score
 var gameOver = false  // game over flag
 var gameSequence = [] // array for game sequence
-var userSequence = [] //array of user-entered sequence
 
 $(document).ready(function(){
     // make sure js file is loading
@@ -12,7 +11,7 @@ $(document).ready(function(){
     $(`#newGame`).on({
         click: function(){
         //test listener by logging "button listining" to the console 
-        console.log("button listening")
+        console.log("new game button clicked")
         //reset gameOver variable
         gameOver = false
         // update score records
@@ -58,6 +57,7 @@ $(document).ready(function(){
 
 // declared, hoisted function
 function manageScore() {
+    console.log("manageScore invoked")
     // verify function call
     console.log("score: "+score+"; Record Score: "+recordScore)
     // this function updates the record Score variable and the on-page scoreboard
@@ -84,44 +84,85 @@ function manageScore() {
     buildSequence()
 }
 
+//declared, hoisted function that increments game pattern sequence
+function buildSequence() {
+    console.log("buildSequence invoked")
+    // get randome number between 1 and 4 to add to sequence
+    var newRandomNumber = getRandomInt()
+    gameSequence.push(newRandomNumber)
+    console.log(gameSequence)
+    // call presentGameSquence with first item in array
+    presentGameSequence()
+}
+
 //declared, hoisted function that generate random number 1-4
 //code derived from: https://stackoverflow.com/questions/1527803/generating-random-whole-numbers-in-javascript-in-a-specific-range
 function getRandomInt() {
+    console.log("getRandomInt invoked")
     var min = 1
     var max = 4
     return Math.floor(Math.random() * (max - min + 1)) + min
 }
 
 //declared, hoisted functon that presents game sequence to the player
-function presentGameSequence(element, index, array) {
-    if (element === 1) {
-        // $(`#tlc`).css(background="red").delay(200).css(background="yellow")
-        console.log ("Element: "+element)
-        $(`#topLeftConsole`).toggleClass("tlcOff tlcOn")      
-    }
-    else if (element === 2) {
-        // $(`#trc`).css(background="red").delay(200).css(background="yellow")
-        console.log ("Element: "+element)
-        $(`#topRightConsole`).toggleClass("trcOff trcOn")
-    }
-    else if (element === 3) {
-        // $(`#brc`).css(background="red").delay(200).css(background="yellow")
-        console.log ("Element: "+element)
-        $(`#btmRightConsole`).toggleClass("brcOff brcOn")
-    }
-    else {
-        // $(`#blc`).css(background="red").delay(200).css(background="yellow")
-        console.log ("Element: "+element)
-        $(`#btmLeftConsole`).toggleClass("blcOff blcOn")
-    }
-}
+function presentGameSequence() {
+    console.log("presentGameSequence invoked")
+    for (let ndex=0; ndex<gameSequence.length; ndex++) {
+        // check for "console on" classes and remove if they exist
+        console.log("ndex: "+ndex)
+        console.log("checking for class toggles")
+        if ($(`#topLeftConsole`).hasClass("tlcOn")){
+            console.log("turning off tlcOn")
+            $(`#topLeftConsole`).toggleClass("tlcOff tlcOn") 
+        }
+        if ($(`#topRightConsole`).hasClass("trcOn")){
+            console.log("turning off trcOn")
+            $(`#topRightConsole`).toggleClass("trcOff trcOn") 
+        }
 
-//declared, hoisted function that increments game pattern sequence
-function buildSequence() {
-    // get randome number between 1 and 4 to add to sequence
-    var newRandomNumber = getRandomInt()
-    gameSequence.push(newRandomNumber)
-    console.log(gameSequence)
-    //present array to player
-    gameSequence.forEach(presentGameSequence)
+        if ($(`#btmRightConsole`).hasClass("brcOn")){
+            console.log("turning off brcOn")
+            $(`#btmRightConsole`).toggleClass("brcOff brcOn") 
+        }
+        if ($(`#btmLeftConsole`).hasClass("blcOn")){
+            console.log("need to turn off blcOn")
+            $(`#btmLeftConsole`).toggleClass("blcOff blcOn") 
+        }
+       
+        // run annimation
+        setTimeout(function(){
+            console.log("starting animations")
+            if (gameSequence[ndex] === 1) {
+                console.log("processing 1 in array")
+                console.log("gameSequence Length: "+gameSequence.length)
+                console.log ("Animation Index: "+ndex)
+                console.log ("Animation Element: "+gameSequence[ndex])
+                $(`#topLeftConsole`).toggleClass("tlcOff tlcOn")
+            }
+            else if (gameSequence[ndex] === 2) {
+                console.log("processing 2 in array")
+                console.log("gameSequence Length: "+gameSequence.length)
+                console.log ("Animation Index: "+ndex)
+                console.log ("Animation Element: "+gameSequence[ndex])
+                $(`#topRightConsole`).toggleClass("trcOff trcOn")
+            }
+            else if (gameSequence[ndex] === 3) {
+                console.log("processing 3 in array")
+                console.log("gameSequence Length: "+gameSequence.length)
+                console.log ("Animation Index: "+ndex)
+                console.log ("Animation Element: "+gameSequence[ndex])
+                $(`#btmRightConsole`).toggleClass("brcOff brcOn")
+            }
+            else {
+                console.log("processing 4 in array")
+                console.log("gameSequence Length: "+gameSequence.length)
+                console.log ("Animation Index: "+ndex)
+                console.log ("Animation Element: "+gameSequence[ndex])
+                $(`#btmLeftConsole`).toggleClass("blcOff blcOn")
+            }
+            console.log("Index for timing: "+ndex)
+        }, 1200*ndex)
+    }
+    // update displayed sequence length
+    $(`#sequenceLength`).html(gameSequence.length) 
 }

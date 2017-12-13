@@ -92,7 +92,6 @@ main {
     background-color: #f6f879;
     border: 3px solid  #3d4042;
     border-radius: 0px 0px 0px 200px;
-
 }
 
 @keyframes tlcOn {
@@ -114,7 +113,7 @@ main {
 
 @keyframes trcOn {
     from {background-color: #e46868;}
-    to {background-color:  #ff01ee;;}
+    to {background-color:  #ff01ee;}
 }
 
 .trcOn {
