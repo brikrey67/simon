@@ -1,105 +1,97 @@
 var score // score of current game
-var recordScore = 15 // best overall score
-var gameOver   // game over flag
+var recordScore // best overall score
 var gameSequence = [] // array for game sequence
+var userClickIndex = 0 //tracks total player console clicks per round
 
 $(document).ready(function(){
     // make sure js file is loading
     // $('body').css('background-color','red')
 
-     var userClickIndex = 0
-     var lastUserClick
+     let lastUserClick //most recent player console click
 
     // listener for new game button
     $(`#newGame`).on({
         click: function(){
-        //test listener by logging "button listining" to the console 
-        console.log("new game button clicked")
+        console.log("new game button invoked")
         //reset gameOver variable
-        gameOver = false
-        // update score records
-        score = 0
-        manageScore ()
+        gameRestart = true
+        manageScore (gameRestart)
         }
     })
 
     // listener for top left console - green
     $(`#topLeftConsole`).on({
         click: function(){
-        //test listener by logging "button listining" to the console 
-        console.log("green - listening")
-        // record lastest click and increment click index
+        console.log("GREEN CONSOLE INVOKED")
+        // record lastest click
         var lastUserClick = 1
-        console.log("green: "+lastUserClick)
+        console.log("green click: "+lastUserClick)
+        //increment user click index
         userClickIndex = userClickIndex + 1
-        console.log("click index: "+userClickIndex)
-        validateLastClick(lastUserClick, userClickIndex)
+        console.log("green click index: "+userClickIndex)
+        validateLastClick(lastUserClick)
         }
     })
 
     // listener for top right console - red
     $(`#topRightConsole`).on({
         click: function(){
-        //test listener by logging "button listining" to the console 
-        console.log("red - listening")        
-        // record lastest click and increment click index
+        console.log("RED CONSOLE INVOKED")        
+        // record lastest click
         var lastUserClick = 2
-        console.log("red: "+lastUserClick)
+        console.log("red click: "+lastUserClick)
+        //increment click index
         userClickIndex = userClickIndex + 1
-        console.log("click index: "+userClickIndex)
-        validateLastClick(lastUserClick, userClickIndex)
+        console.log("red click index: "+userClickIndex)
+        validateLastClick(lastUserClick)
         }
     })
 
-    // listener for botton right console - blue
-    $(`btmRightConsole`).on({
+    // listener for botton left console - yellow
+    $(`#btmRightConsole`).on({
         click: function(){
-        //test listener by logging "button listining" to the console 
-        console.log("blue - listening")
+        console.log("BLUE CONSOLE INVOKED")
         // record lastest click and increment click index
         var lastUserClick = 3
-        console.log("blue: "+lastUserClick)
+        console.log("blue click: "+lastUserClick)
         userClickIndex = userClickIndex + 1
-        console.log("click index: "+userClickIndex)
-        validateLastClick(lastUserClick, userClickIndex)
+        console.log("blue click index: "+userClickIndex)
+        validateLastClick(lastUserClick)
         }
     })
     // listener for botton left console - yellow
     $(`#btmLeftConsole`).on({
         click: function(){
-        //test listener by logging "button listining" to the console 
-        console.log("yellow - listening")
+        console.log("YELLOE CONSOLE INVOKED")
         // record lastest click and increment click index
         var lastUserClick = 4
-        console.log("yellow: "+lastUserClick)
+        console.log("yellow click: "+lastUserClick)
         userClickIndex = userClickIndex + 1
-        console.log("click index: "+userClickIndex)
-        validateLastClick(lastUserClick, userClickIndex)
+        console.log("yellow click index: "+userClickIndex)
+        validateLastClick(lastUserClick)
         }
     })
 
-    // declared, hoisted function
-    function manageScore() {
-        // this function updates the record Score variable and the on-page scoreboard
-        // verify function call
+    // declared, hoisted function for score management  
+    function manageScore(gameRestart) {
         console.log("manageScore invoked")
-        if (score > recordScore) {
-            // update recordScore variable
-            recordScore = score 
-            // verify function call
-            console.log("Record Score: "+recordScore)
-            // update displayed recordScore
-            $(`#recordScore`).html(recordScore) 
-            // XXXXX add notification XXXX
+        if (gameRestart === false) {
+            console.log("game continues")
+            console.log("score: "+score+ " record score: "+recordScore)
+            if (typeof recordScore === 'undefined') {recordScore = 0}
+            if (score > recordScore) {
+                recordScore = score 
+                $(`#recordScore`).html(recordScore) 
+                // XXXXX add notification XXXX
+            }
         }
-        if (gameOver === true) {
-            // verify handling of game record update
-            console.log("game over")
-            // reset game sequence
+        else if (gameRestart === true) {
+            console.log("game restart ")
+            // reset game
+            score = 0
+            $(`#score`).html("000")
             gameSequence = [] 
-            // verify gane sequence reset
-            console.log(gameSequence)
-            return
+            $(`#sequenceLength`).html("000") 
         }
         buildSequence()
     }
@@ -129,7 +121,7 @@ $(document).ready(function(){
         console.log("presentGameSequence invoked")
         for (let ndex=0; ndex<gameSequence.length; ndex++) {
             // check for "console on" classes and remove if they exist
-            console.log("ndex: "+ndex)
+            console.log("ndex before toggle check: "+ndex)
             console.log("checking for class toggles")
             if ($(`#topLeftConsole`).hasClass("tlcOn")){
                 console.log("turning off tlcOn")
@@ -139,7 +131,6 @@ $(document).ready(function(){
                 console.log("turning off trcOn")
                 $(`#topRightConsole`).toggleClass("trcOff trcOn") 
             }
-
             if ($(`#btmRightConsole`).hasClass("brcOn")){
                 console.log("turning off brcOn")
                 $(`#btmRightConsole`).toggleClass("brcOff brcOn") 
@@ -148,10 +139,11 @@ $(document).ready(function(){
                 console.log("need to turn off blcOn")
                 $(`#btmLeftConsole`).toggleClass("blcOff blcOn") 
             }
-        
+            console.log("ndex after toggle check: "+ndex)
             // run annimation
             setTimeout(function(){
                 console.log("starting animations")
+                console.log("ndex before animations: "+ndex)
                 if (gameSequence[ndex] === 1) {
                     console.log("processing 1 in array")
                     console.log("gameSequence Length: "+gameSequence.length)
@@ -180,32 +172,32 @@ $(document).ready(function(){
                     console.log ("Animation Element: "+gameSequence[ndex])
                     $(`#btmLeftConsole`).toggleClass("blcOff blcOn")
                 }
-                console.log("Index for timing: "+ndex)
+                console.log("ndex after animation: "+ndex)
             }, 1200*ndex)
         }
         // update displayed sequence length
         $(`#sequenceLength`).html(gameSequence.length) 
     }
 
-    function validateLastClick(lastUserClick, userClickIndex) {
+    function validateLastClick(lastUserClick) {
         console.log("validateLastClick invoked")
         console.log("lastUserClick: "+lastUserClick)
         console.log("gameSequence element: "+gameSequence[userClickIndex -1])
         if (lastUserClick === gameSequence[userClickIndex-1]) {
-            // XXXX handle display of correct answer XXXX
+            // XXXX display of correct player entry XXXX
             console.log("userClickIndex: "+userClickIndex)
             console.log("gameSequence.length: "+gameSequence.length)
             if (userClickIndex === gameSequence.length) {
                 score = score + 1
-                console.log("score: "+score)
-                //update score display
-                $(`#score`).html(score) 
-                manageScore()
+                console.log("score increased to: "+score)
+                $(`#score`).html(score)
+                gameRestart = false
+                userClickIndex = 0
+                manageScore(gameRestart)
             }
         }
         else {
-            gameOver = true
-            // XXXX handle display of incorrect answer XXXX
+            alert("Sorry. Game over!... You did not match the game pattern.")
         }
     }
 })
