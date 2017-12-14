@@ -1,7 +1,8 @@
-var score // score of current game
-var recordScore // best overall score
-var gameSequence = [] // array for game sequence
-var userClickIndex = 0 //tracks total player console clicks per round
+let score // score of current game
+let recordScore // best overall score
+let gameSequence = [] // array for game sequence
+let userClickIndex = 0 //tracks total player console clicks per round
+let userClickSequence = "" // tracks player click sequence
 
 $(document).ready(function(){
     // make sure js file is loading
@@ -23,52 +24,86 @@ $(document).ready(function(){
     $(`#topLeftConsole`).on({
         click: function(){
         console.log("GREEN CONSOLE INVOKED")
-        // record lastest click
-        var lastUserClick = 1
-        console.log("green click: "+lastUserClick)
-        //increment user click index
-        userClickIndex = userClickIndex + 1
-        console.log("green click index: "+userClickIndex)
-        validateLastClick(lastUserClick)
+        
+        console.log ("add class tlcInputOn")
+        $(`#topLeftConsole`).addClass("tlcInputOn")
+
+        setTimeout(function(){
+            // record lastest click
+            let lastUserClick = 1
+            console.log("green click: "+lastUserClick)
+            //increment user click index
+            userClickIndex = userClickIndex + 1
+            console.log("green click index: "+userClickIndex)
+            validateLastClick(lastUserClick)
+            console.log("removing class tlcInputOn")
+            $(`#topLeftConsole`).removeClass("tlcInputOn") 
+            }, 600)  
         }
     })
-
+    
     // listener for top right console - red
     $(`#topRightConsole`).on({
         click: function(){
-        console.log("RED CONSOLE INVOKED")        
-        // record lastest click
-        var lastUserClick = 2
-        console.log("red click: "+lastUserClick)
-        //increment click index
-        userClickIndex = userClickIndex + 1
-        console.log("red click index: "+userClickIndex)
-        validateLastClick(lastUserClick)
+        console.log("RED CONSOLE INVOKED")
+        
+        console.log ("add class trcInputOn")
+        $(`#topRightConsole`).toggleClass("trcInputOn")
+        
+        setTimeout(function(){
+            // record lastest click
+            let lastUserClick = 2
+            console.log("red click: "+lastUserClick)
+            //increment user click index
+            userClickIndex = userClickIndex + 1
+            console.log("red click index: "+userClickIndex)
+            validateLastClick(lastUserClick)
+            console.log("removing class trcInputOn")
+            $(`#topRightConsole`).removeClass("trcInputOn") 
+        }, 600) 
         }
     })
 
-    // listener for botton left console - yellow
+    // listener for botton left console - blue
     $(`#btmRightConsole`).on({
         click: function(){
         console.log("BLUE CONSOLE INVOKED")
-        // record lastest click and increment click index
-        var lastUserClick = 3
-        console.log("blue click: "+lastUserClick)
-        userClickIndex = userClickIndex + 1
-        console.log("blue click index: "+userClickIndex)
-        validateLastClick(lastUserClick)
+
+        console.log ("add class brcInputOn")
+        $(`#btmRightConsole`).addClass("brcInputOn")
+
+        setTimeout(function(){
+            // record lastest click
+            let lastUserClick = 3
+            console.log("blue click: "+lastUserClick)
+            //increment user click index
+            userClickIndex = userClickIndex + 1
+            console.log("blue click index: "+userClickIndex)
+            validateLastClick(lastUserClick)
+            console.log("removing class brcInputOn")
+            $(`#btmRightConsole`).removeClass("brcInputOn") 
+        }, 600) 
         }
     })
     // listener for botton left console - yellow
     $(`#btmLeftConsole`).on({
         click: function(){
-        console.log("YELLOE CONSOLE INVOKED")
-        // record lastest click and increment click index
-        var lastUserClick = 4
-        console.log("yellow click: "+lastUserClick)
-        userClickIndex = userClickIndex + 1
-        console.log("yellow click index: "+userClickIndex)
-        validateLastClick(lastUserClick)
+        console.log("YELLOW CONSOLE INVOKED")
+
+        console.log ("add class blcInputOn")
+        $(`#btmLeftConsole`).addClass("blcInputOn")
+        
+        setTimeout(function(){
+            // record lastest click
+            let lastUserClick = 4
+            console.log("yellow click: "+lastUserClick)
+            //increment user click index
+            userClickIndex = userClickIndex + 1
+            console.log("yellow click index: "+userClickIndex)
+            validateLastClick(lastUserClick)
+            console.log("remove class blcInputOn")
+            $(`#btmLeftConsole`).toggleClass("blcInputOn") 
+        }, 600) 
         }
     })
 
@@ -77,9 +112,10 @@ $(document).ready(function(){
         console.log("manageScore invoked")
         if (gameRestart === false) {
             console.log("game continues")
-            console.log("score: "+score+ " record score: "+recordScore)
             if (typeof recordScore === 'undefined') {recordScore = 0}
+            console.log("score: "+score+ " record score: "+recordScore)
             if (score > recordScore) {
+                console.log("updating record score")
                 recordScore = score 
                 $(`#recordScore`).html(recordScore) 
                 // XXXXX add notification XXXX
@@ -91,7 +127,11 @@ $(document).ready(function(){
             score = 0
             $(`#score`).html("000")
             gameSequence = [] 
+            userClickIndex = 0
+            userClickSequence = ""
             $(`#sequenceLength`).html("000") 
+            $(`#sequence`).html("") 
+            $(`#userSequence`).html("") 
         }
         buildSequence()
     }
@@ -100,8 +140,9 @@ $(document).ready(function(){
     function buildSequence() {
         console.log("buildSequence invoked")
         // get randome number between 1 and 4 to add to sequence
-        var newRandomNumber = getRandomInt()
+        let newRandomNumber = getRandomInt()
         gameSequence.push(newRandomNumber)
+        $(`#sequence`).html(gameSequence)
         console.log(gameSequence)
         // call presentGameSquence with first item in array
         presentGameSequence()
@@ -111,8 +152,8 @@ $(document).ready(function(){
     //code derived from: https://stackoverflow.com/questions/1527803/generating-random-whole-numbers-in-javascript-in-a-specific-range
     function getRandomInt() {
         console.log("getRandomInt invoked")
-        var min = 1
-        var max = 4
+        let min = 1
+        let max = 4
         return Math.floor(Math.random() * (max - min + 1)) + min
     }
 
@@ -120,63 +161,51 @@ $(document).ready(function(){
     function presentGameSequence() {
         console.log("presentGameSequence invoked")
         for (let ndex=0; ndex<gameSequence.length; ndex++) {
-            // check for "console on" classes and remove if they exist
-            console.log("ndex before toggle check: "+ndex)
-            console.log("checking for class toggles")
-            if ($(`#topLeftConsole`).hasClass("tlcOn")){
-                console.log("turning off tlcOn")
-                $(`#topLeftConsole`).toggleClass("tlcOff tlcOn") 
-            }
-            if ($(`#topRightConsole`).hasClass("trcOn")){
-                console.log("turning off trcOn")
-                $(`#topRightConsole`).toggleClass("trcOff trcOn") 
-            }
-            if ($(`#btmRightConsole`).hasClass("brcOn")){
-                console.log("turning off brcOn")
-                $(`#btmRightConsole`).toggleClass("brcOff brcOn") 
-            }
-            if ($(`#btmLeftConsole`).hasClass("blcOn")){
-                console.log("need to turn off blcOn")
-                $(`#btmLeftConsole`).toggleClass("blcOff blcOn") 
-            }
-            console.log("ndex after toggle check: "+ndex)
-            // run annimation
             setTimeout(function(){
                 console.log("starting animations")
                 console.log("ndex before animations: "+ndex)
                 if (gameSequence[ndex] === 1) {
-                    console.log("processing 1 in array")
-                    console.log("gameSequence Length: "+gameSequence.length)
-                    console.log ("Animation Index: "+ndex)
-                    console.log ("Animation Element: "+gameSequence[ndex])
-                    $(`#topLeftConsole`).toggleClass("tlcOff tlcOn")
+                    console.log("processing 1-green in array")
+                    console.log("gameSequence length: "+gameSequence.length)
+                    console.log ("animation index: "+ndex)
+                    console.log ("animation element: "+gameSequence[ndex])
+                    console.log("add class tlcOn")
+                    $(`#topLeftConsole`).removeClass("tlcOn")
+                    $(`#topLeftConsole`).addClass("tlcOn")
                 }
                 else if (gameSequence[ndex] === 2) {
-                    console.log("processing 2 in array")
-                    console.log("gameSequence Length: "+gameSequence.length)
-                    console.log ("Animation Index: "+ndex)
-                    console.log ("Animation Element: "+gameSequence[ndex])
-                    $(`#topRightConsole`).toggleClass("trcOff trcOn")
+                    console.log("processing 2-red in array")
+                    console.log("gameSequence length: "+gameSequence.length)
+                    console.log ("animation index: "+ndex)
+                    console.log ("animation element: "+gameSequence[ndex])
+                    console.log("add class trcOn")
+                    $(`#topLeftConsole`).removeClass("trcOn") 
+                    $(`#topRightConsole`).addClass("trcOff trcOn") 
                 }
                 else if (gameSequence[ndex] === 3) {
-                    console.log("processing 3 in array")
-                    console.log("gameSequence Length: "+gameSequence.length)
-                    console.log ("Animation Index: "+ndex)
-                    console.log ("Animation Element: "+gameSequence[ndex])
-                    $(`#btmRightConsole`).toggleClass("brcOff brcOn")
+                    console.log("processing 3-blue in array")
+                    console.log("gameSequence length: "+gameSequence.length)
+                    console.log ("animation index: "+ndex)
+                    console.log ("animation element: "+gameSequence[ndex])
+                    console.log("add class brcOn")
+                    $(`#topLeftConsole`).removeClass("brcOn") 
+                    $(`#btmRightConsole`).addClass("brcOn") 
                 }
                 else {
-                    console.log("processing 4 in array")
-                    console.log("gameSequence Length: "+gameSequence.length)
-                    console.log ("Animation Index: "+ndex)
-                    console.log ("Animation Element: "+gameSequence[ndex])
-                    $(`#btmLeftConsole`).toggleClass("blcOff blcOn")
+                    console.log("processing 4-yellow in array")
+                    console.log("gameSequence length: "+gameSequence.length)
+                    console.log ("animation index: "+ndex)
+                    console.log ("animation element: "+gameSequence[ndex])
+                    console.log("add class blcOn")
+                    $(`#topLeftConsole`).removeClass("blcOn") 
+                    $(`#btmLeftConsole`).addClass("blcOn")
                 }
-                console.log("ndex after animation: "+ndex)
-            }, 1200*ndex)
-        }
-        // update displayed sequence length
-        $(`#sequenceLength`).html(gameSequence.length) 
+                console.log("ndex before animation iterartion: "+ndex)
+                // update displayed sequence length
+                console.log("update sequence-length display")
+                $(`#sequenceLength`).html(gameSequence.length)
+            }, 600*ndex)
+        } 
     }
 
     function validateLastClick(lastUserClick) {
@@ -187,6 +216,10 @@ $(document).ready(function(){
             // XXXX display of correct player entry XXXX
             console.log("userClickIndex: "+userClickIndex)
             console.log("gameSequence.length: "+gameSequence.length)
+            // console.log("userClickSequence before increment: "+userClickSequence)
+            // userClickSequence = userClickSequence + lastUserClick.toString()
+            console.log("userClickSequence after increment: "+userClickSequence)
+            $(`#userSequence`).html(userClickSequence)
             if (userClickIndex === gameSequence.length) {
                 score = score + 1
                 console.log("score increased to: "+score)
