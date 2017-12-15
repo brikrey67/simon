@@ -27,31 +27,32 @@
                 <br>
                 <h3 class="label">SEQUENCE LENGTH:</h3>
                 <h2 id="sequenceLength" class="digit">000</h2>
-                <h3 class="label">SEQUENCE:</h3>
-                <h2 id="sequence" class="digit"></h2>
-                <h2 id="userSequence" class="digit"></h2>
+
             </div>
             <div id="centerMain">  <!--flex: column -->
-                <div id="topConsole">  <!--flex: row -->
-                    <div id="topLeftConsole" class="left top tlcOff"></div>
-                    <div id="topCenterConsole" class="mid top"></div>
-                    <div id="topRightConsole" class="right top trcOff"></div>
+                <div id="topRow">  <!--flex: row -->
+                    <div id="tl" class="left top tlOff"></div>
+                    <div id="tc" class="mid top"></div>
+                    <div id="tr" class="right top trOff"></div>
                 </div>
-                <div id="midConsole">  <!--flex: row -->
-                    <div id="midLeftConsole" class="left"></div>
-                    <div id="midCenterConsole" class="mid">
+                <div id="midRow">  <!--flex: row -->
+                    <div id="ml" class="left"></div>
+                    <div id="mc" class="mid">
                         <h2>SIMON</h2>
                     </div>
-                    <div id="midRightConsole" class="right"></div>
+                    <div id="mr" class="right"></div>
                 </div>
-                <div id="btmConsole">  <!--flex: row -->
-                    <div id="btmLeftConsole" class="left btm blcOff"></div>
-                    <div id="btmCenterConsole" class="mid btm"></div>
-                    <div id="btmRightConsole" class="right btm brcOff"></div>
+                <div id="btmRow">  <!--flex: row -->
+                    <div id="bl" class="left btm blOff"></div>
+                    <div id="bc" class="mid btm"></div>
+                    <div id="br" class="right btm brOff"></div>
                 </div>
             </div>
             <div id="rightMain">
                 <button id="newGame">New Game</button>
+                <h3 class="label">GAME STATUS:</h3>
+                <h2 id="status" class="digit"></h2>
+                <button id="nextLevel">Next Level</button>
             </div>
         </main>
         <footer>

@@ -1,150 +1,172 @@
-let score // score of current game
-let recordScore // best overall score
+let score = 0// score of current game
+let recordScore = 0// best overall score
 let gameSequence = [] // array for game sequence
-let userClickIndex = 0 //tracks total player console clicks per round
-let userClickSequence = "" // tracks player click sequence
+let clickCount = 0 //tracks total player console clicks per round
 
 $(document).ready(function(){
 
-     let lastUserClick //most recent player console click
+// ********* begin define listeners *******
 
     // listener for new game button
     $(`#newGame`).on({
         click: function(){
-            gameRestart = true
-            manageScore (gameRestart)
+            resetScoreboard ()
         }
     })
 
-    // listener for top left console - green
-    $(`#topLeftConsole`).on({
+    $(`#nextLevel`).on({
         click: function(){
-        $(`#topLeftConsole`).addClass("tlcInputOn")
-
-        setTimeout(function(){
-            let lastUserClick = 1
-            userClickIndex = userClickIndex + 1
-            validateLastClick(lastUserClick)
-            $(`#topLeftConsole`).removeClass("tlcInputOn") 
-            }, 600)  
-        }
-    })
-    
-    // listener for top right console - red
-    $(`#topRightConsole`).on({
-        click: function(){
-        $(`#topRightConsole`).toggleClass("trcInputOn")
-        
-        setTimeout(function(){
-            let lastUserClick = 2
-            userClickIndex = userClickIndex + 1
-            validateLastClick(lastUserClick)
-            $(`#topRightConsole`).removeClass("trcInputOn") 
-        }, 600) 
+            buildSequence ()
         }
     })
 
-    // listener for botton left console - blue
-    $(`#btmRightConsole`).on({
-        click: function(){
-        $(`#btmRightConsole`).addClass("brcInputOn")
-
+    // listener for top left corner - green
+    $(`#tl`).on({
+        click: function(){ 
+        $(`#tl`).addClass("tlInput")
+        let click = 1
+        // clickSequence.push(click)
+        clickCount = clickCount + 1
+        validateClick(click)
         setTimeout(function(){
-            let lastUserClick = 3
-            userClickIndex = userClickIndex + 1
-            validateLastClick(lastUserClick)
-            $(`#btmRightConsole`).removeClass("brcInputOn") 
-        }, 600) 
-        }
-    })
-    // listener for botton left console - yellow
-    $(`#btmLeftConsole`).on({
-        click: function(){
-        $(`#btmLeftConsole`).addClass("blcInputOn")
-        
-        setTimeout(function(){
-            let lastUserClick = 4
-            userClickIndex = userClickIndex + 1
-            validateLastClick(lastUserClick)
-            $(`#btmLeftConsole`).toggleClass("blcInputOn") 
-        }, 600) 
+            $("#tl").removeClass("tlInput") 
+            }, 600)
+            return 
         }
     })
 
-    function manageScore(gameRestart) {
-        if (gameRestart === false) {
-            if (typeof recordScore === 'undefined') {recordScore = 0}
+    // listener for top right corner - red
+    $(`#tr`).on({
+        click: function(){ 
+        $(`#tr`).addClass("trInput")
+        let click = 2
+        // clickSequence.push(click)
+        clickCount = clickCount + 1
+        validateClick(click)
+        setTimeout(function(){
+            $("#tr").removeClass("trInput") 
+            }, 600)
+            return 
+        }
+    })
+
+    // listener for bottom right corner - blue
+    $(`#br`).on({
+        click: function(){ 
+        $(`#br`).addClass("brInput")
+        let click = 3
+        // clickSequence.push(click)
+        clickCount = clickCount + 1
+        validateClick(click)
+        setTimeout(function(){
+            $("#br").removeClass("brInput") 
+            }, 600)
+            return 
+        }
+    })
+
+    // listener for bottom left corner - yellow
+    $(`#bl`).on({
+        click: function(){ 
+        $(`#bl`).addClass("blInput")
+        let click = 4
+        // clickSequence.push(click)
+        clickCount = clickCount + 1
+        validateClick(click)
+        setTimeout(function(){
+            $("#bl").removeClass("blInput") 
+            }, 500)
+            return 
+        }
+    })
+})
+
+// ********* begin game reset management *******
+
+function resetScoreboard() {
+    // clear global variables
+    score = 0
+    gameSequence = [] 
+    clickCount = 0
+    // clear the dashboard
+    $(`#score`).html("000")
+    $(`#sequenceLength`).html("000") 
+    $(`#status`).html("IN PROCESS") 
+    buildSequence()
+    return
+}
+
+// ********* begin play management *******
+
+function validateClick(click) {
+    if (click === gameSequence[clickCount-1]) {
+        $(`#status`).html("CORRECT...") 
+        if (clickCount === gameSequence.length) {
+            score = score + 1 
+            $(`#score`).html(score)
             if (score > recordScore) {
                 recordScore = score 
                 $(`#recordScore`).html(recordScore) 
             }
+            // buildSequence()
+            return
         }
-        else if (gameRestart === true) {
-            score = 0
-            $(`#score`).html("000")
-            gameSequence = [] 
-            userClickIndex = 0
-            userClickSequence = ""
-            $(`#sequenceLength`).html("000") 
-            $(`#sequence`).html("") 
-            $(`#userSequence`).html("") 
-        }
-        buildSequence()
     }
-
-    function buildSequence() {
-        let newRandomNumber = getRandomInt()
-        gameSequence.push(newRandomNumber)
-        $(`#sequence`).html(gameSequence)
-        presentGameSequence()
+    else {
+        $(`#status`).html("GAME OVER") 
     }
+}
 
-    //declared, hoisted function that generate random number 1-4
-    //code derived from: https://stackoverflow.com/questions/1527803/generating-random-whole-numbers-in-javascript-in-a-specific-range
-    function getRandomInt() {
-        let min = 1
-        let max = 4
-        return Math.floor(Math.random() * (max - min + 1)) + min
-    }
+// ********* begin game build *******
 
-    function presentGameSequence() {
-        for (let ndex=0; ndex<gameSequence.length; ndex++) {
+function buildSequence() {
+    let newRandomNumber = getRandomInt()
+    gameSequence.push(newRandomNumber)
+    $(`#sequenceLength`).html(gameSequence.length)
+    // $(`#sequence`).html(gameSequence)
+    presentGame()
+    return
+}
+
+//code derived from: https://stackoverflow.com/questions/1527803/generating-random-whole-numbers-in-javascript-in-a-specific-range
+function getRandomInt() {
+    const min = 1
+    const max = 4
+    return Math.floor(Math.random() * (max - min + 1)) + min
+}
+
+// ********* present game round to player *******
+
+function presentGame() {
+    for (let ndex=0; ndex<gameSequence.length; ndex++) {
+        if (gameSequence[ndex] === 1) {
+            $(`#tl`).addClass("tlOn") 
             setTimeout(function(){
-                if (gameSequence[ndex] === 1) {
-                    $(`#topLeftConsole`).removeClass("tlcOn")
-                    $(`#topLeftConsole`).addClass("tlcOn") 
-                }
-                else if (gameSequence[ndex] === 2) {
-                    $(`#topRightConsole`).removeClass("trcOn") 
-                    $(`#topRightConsole`).addClass("trcOn") 
-                }
-                else if (gameSequence[ndex] === 3) {
-                    $(`#topLeftConsole`).removeClass("brcOn") 
-                    $(`#btmRightConsole`).addClass("brcOn") 
-                }
-                else {
-                    $(`#topLeftConsole`).removeClass("blcOn") 
-                    $(`#btmLeftConsole`).addClass("blcOn")
-                }
-                $(`#sequenceLength`).html(gameSequence.length)
-            }, 600*ndex)
-        } 
-    }
-
-    function validateLastClick(lastUserClick) {
-        if (lastUserClick === gameSequence[userClickIndex-1]) {
-            $(`#userSequence`).html(userClickSequence)
-            if (userClickIndex === gameSequence.length) {
-                score = score + 1
-                $(`#score`).html(score)
-                gameRestart = false
-                userClickIndex = 0
-                manageScore(gameRestart)
+                $("#tl").removeClass("tlOn") 
+                }, 500)
+                return 
             }
-        }
+        else if (gameSequence[ndex] === 2) {
+            $(`#tr`).addClass("trOn") 
+            setTimeout(function(){
+                $("#tr").removeClass("trOn") 
+                }, 500)
+                return 
+            }
+        else if (gameSequence[ndex] === 3) {
+            $(`#br`).addClass("brOn") 
+            setTimeout(function(){
+                $("#br").removeClass("brOn") 
+                }, 500)
+                return 
+            }
         else {
-            alert("Sorry. Game over!... You did not match the game pattern.")
+            $(`#bl`).addClass("blOn")
+            setTimeout(function(){
+                $("#bl").removeClass("blOn") 
+                }, 500)
+                return 
         }
-    }
-})
-
+    } 
+    return
+}
