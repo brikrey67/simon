@@ -1,82 +1,77 @@
 let score = 0// score of current game
 let recordScore = 0// best overall score
 let gameSequence = [] // array for game sequence
-let clickCount = 0 //tracks total player console clicks per round
+let clickCount = 0 // count of player clicks per game
 
 $(document).ready(function(){
 
 // ********* begin define listeners *******
 
     // listener for new game button
-    $(`#newGame`).on({
-        click: function(){
+    $("#newGame").on({
+        click: function(e){
+            e.preventDefault()
             resetScoreboard ()
         }
     })
 
-    $(`#nextLevel`).on({
-        click: function(){
-            buildSequence ()
-        }
-    })
-
     // listener for top left corner - green
-    $(`#tl`).on({
-        click: function(){ 
-        $(`#tl`).addClass("tlInput")
+    $("#tl").on({
+        click: function(e){ 
+        e.preventDefault()
+        $("#tl").addClass("tlInput")
         let click = 1
-        // clickSequence.push(click)
         clickCount = clickCount + 1
-        validateClick(click)
+        clickCountNow = clickCount
+        validateClick(click, clickCountNow)
         setTimeout(function(){
             $("#tl").removeClass("tlInput") 
             }, 600)
-            return 
         }
     })
 
     // listener for top right corner - red
-    $(`#tr`).on({
-        click: function(){ 
-        $(`#tr`).addClass("trInput")
+    $("#tr").on({
+        click: function(e){ 
+        e.preventDefault()
+        $("#tr").addClass("trInput")
         let click = 2
-        // clickSequence.push(click)
         clickCount = clickCount + 1
-        validateClick(click)
+        clickCountNow = clickCount
+        validateClick(click, clickCountNow)
         setTimeout(function(){
             $("#tr").removeClass("trInput") 
             }, 600)
-            return 
         }
     })
 
     // listener for bottom right corner - blue
-    $(`#br`).on({
-        click: function(){ 
-        $(`#br`).addClass("brInput")
+    $("#br").on({
+        click: function(e){ 
+        e.preventDefault()
+        $("#br").addClass("brInput")
         let click = 3
-        // clickSequence.push(click)
         clickCount = clickCount + 1
-        validateClick(click)
+        clickCountNow = clickCount
+        validateClick(click, clickCountNow)
         setTimeout(function(){
             $("#br").removeClass("brInput") 
             }, 600)
-            return 
         }
     })
 
     // listener for bottom left corner - yellow
-    $(`#bl`).on({
-        click: function(){ 
-        $(`#bl`).addClass("blInput")
+    $("#bl").on({
+        click: function(e){ 
+        e.preventDefault()
+        $("#bl").addClass("blInput")
         let click = 4
-        // clickSequence.push(click)
         clickCount = clickCount + 1
-        validateClick(click)
+        clickCountNow = clickCount
+        validateClick(click, clickCountNow)
         setTimeout(function(){
             $("#bl").removeClass("blInput") 
-            }, 500)
-            return 
+            }, 600)
         }
     })
 })
@@ -85,35 +80,38 @@ $(document).ready(function(){
 
 function resetScoreboard() {
     // clear global variables
+    console.log("resetScoreBoard invoked")
     score = 0
     gameSequence = [] 
     clickCount = 0
     // clear the dashboard
     $(`#score`).html("000")
     $(`#sequenceLength`).html("000") 
-    $(`#status`).html("IN PROCESS") 
+    $(`#playerMsg`).html("IN PROCESS") 
+    $(`#footerMsg`).html("")    
     buildSequence()
-    return
 }
 
 // ********* begin play management *******
 
-function validateClick(click) {
-    if (click === gameSequence[clickCount-1]) {
-        $(`#status`).html("CORRECT...") 
+function validateClick(click, clickCountNow) {
+    if (click === gameSequence[clickCountNow-1]) {
+        $("#playerMsg").html("CORRECT...") 
         if (clickCount === gameSequence.length) {
+            $("#playerMsg").html("NEXT LEVEL...") 
             score = score + 1 
-            $(`#score`).html(score)
+            $("#score").html(score)
             if (score > recordScore) {
+                $("#playerMsg").html("NEW RECORD SCORE") 
                 recordScore = score 
                 $(`#recordScore`).html(recordScore) 
             }
-            // buildSequence()
-            return
+            clickCount = 0
+            buildSequence()
         }
     }
     else {
-        $(`#status`).html("GAME OVER") 
+        $("#footerMsg").html("INCORRECT, GAME OVER! CHALLENGE WAS: "+gameSequence) 
     }
 }
 
@@ -122,10 +120,11 @@ function validateClick(click) {
 function buildSequence() {
     let newRandomNumber = getRandomInt()
     gameSequence.push(newRandomNumber)
-    $(`#sequenceLength`).html(gameSequence.length)
-    // $(`#sequence`).html(gameSequence)
-    presentGame()
-    return
+    $("#sequenceLength").html(gameSequence.length)
+    console.log(gameSequence)
+    setTimeout(function(){
+        presentGame()
+    }, 1500)
 }
 
 //code derived from: https://stackoverflow.com/questions/1527803/generating-random-whole-numbers-in-javascript-in-a-specific-range
@@ -140,33 +139,36 @@ function getRandomInt() {
 function presentGame() {
     for (let ndex=0; ndex<gameSequence.length; ndex++) {
         if (gameSequence[ndex] === 1) {
-            $(`#tl`).addClass("tlOn") 
             setTimeout(function(){
+                $("#tl").addClass("tlOn") 
+                setTimeout(function(){
                 $("#tl").removeClass("tlOn") 
-                }, 500)
-                return 
-            }
+                }, 700) 
+            }, 700*ndex) 
+        }
         else if (gameSequence[ndex] === 2) {
-            $(`#tr`).addClass("trOn") 
             setTimeout(function(){
+                $("#tr").addClass("trOn") 
+                setTimeout(function(){
                 $("#tr").removeClass("trOn") 
-                }, 500)
-                return 
-            }
+                }, 700) 
+            }, 700*ndex) 
+        }
         else if (gameSequence[ndex] === 3) {
-            $(`#br`).addClass("brOn") 
             setTimeout(function(){
+                $("#br").addClass("brOn") 
+                setTimeout(function(){
                 $("#br").removeClass("brOn") 
-                }, 500)
-                return 
-            }
-        else {
-            $(`#bl`).addClass("blOn")
+                }, 700) 
+            }, 700*ndex) 
+        }
+        else if (gameSequence[ndex] === 4) {
             setTimeout(function(){
+                $("#bl").addClass("blOn") 
+                setTimeout(function(){
                 $("#bl").removeClass("blOn") 
-                }, 500)
-                return 
+                }, 700) 
+            }, 700*ndex) 
         }
     } 
-    return
 }

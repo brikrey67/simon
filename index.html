@@ -15,7 +15,7 @@
   </head>
   <body> <!--flex: column -->
         <header>
-            <h1>SIMON</h1>
+            <h1>SIMON SAYS: <span id="playerMsg">PRESS 'NEW GAME' TO STARTED</span></h1>
         </header>
         <main> <!--flex: row -->
             <div id="leftMain">
@@ -27,7 +27,6 @@
                 <br>
                 <h3 class="label">SEQUENCE LENGTH:</h3>
                 <h2 id="sequenceLength" class="digit">000</h2>
-
             </div>
             <div id="centerMain">  <!--flex: column -->
                 <div id="topRow">  <!--flex: row -->
@@ -50,13 +49,11 @@
             </div>
             <div id="rightMain">
                 <button id="newGame">New Game</button>
-                <h3 class="label">GAME STATUS:</h3>
-                <h2 id="status" class="digit"></h2>
-                <button id="nextLevel">Next Level</button>
             </div>
         </main>
         <footer>
-            <h3>created by brian</h3>
+            <h3>CREATED BY BRIAN</h3>
+            <h3 id="footerMsg"></h3>
         </footer>
         <!-- include js -->
         <script src="js/visual.js" defer></script>

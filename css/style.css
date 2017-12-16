@@ -79,10 +79,10 @@ main {
     background-image: url("../images/strange-bullseyes.png");
     background-repeat: repeat; 
     background-color: #1d5521;
-    border: 3px solid white;
+    border: 3px ridge white;
     border-radius: 200px 0px 0px 0px;
     animation-name: tlOn;
-    animation-duration: .4s;
+    animation-duration: .5s;
     animation-iteration-count: 1;
 }
 
@@ -90,7 +90,7 @@ main {
     background-image: url("../images/strange-bullseyes.png");
     background-repeat: repeat; 
     background-color: #1d5521;
-    border: 3px solid  white;
+    border: 3px ridge  yellow;
     border-radius: 200px 0px 0px 0px;
     animation-name: tlOn;
     animation-duration: .5s;
@@ -114,10 +114,10 @@ main {
     background-image: url("../images/strange-bullseyes.png");
     background-repeat: repeat; 
     background-color:  #e46868;
-    border: 3px solid  white;
+    border: 3px ridge  white;
     border-radius: 0px 200px 0px 0px;
     animation-name: trOn;
-    animation-duration: .4s;
+    animation-duration: .5s;
     animation-iteration-count: 1;
 }
 
@@ -125,7 +125,7 @@ main {
     background-image: url("../images/strange-bullseyes.png");
     background-repeat: repeat; 
     background-color:  #e46868;
-    border: 3px solid  white;
+    border: 3px ridge  yellow;
     border-radius: 0px 200px 0px 0px;
     animation-name: trOn;
     animation-duration: .5s;
@@ -149,10 +149,10 @@ main {
     background-image: url("../images/strange-bullseyes.png");
     background-repeat: repeat; 
     background-color: #5367bd;
-    border: 3px solid  white;
+    border: 3px ridge  white;
     border-radius: 0px 0px 200px 0px;
     animation-name: brOn;
-    animation-duration: .4s;
+    animation-duration: .5s;
     animation-iteration-count: 1;
 }
 
@@ -160,7 +160,7 @@ main {
     background-image: url("../images/strange-bullseyes.png");
     background-repeat: repeat; 
     background-color: #5367bd;
-    border: 3px solid  white;
+    border: 3px ridge  yellow;
     border-radius: 0px 0px 200px 0px;
     animation-name: brOn;
     animation-duration: .5s;
@@ -184,10 +184,10 @@ main {
     background-image: url("../images/strange-bullseyes.png");
     background-repeat: repeat; 
     background-color: #fa9703;
-    border: 3px solid  white;
+    border: 3px ridge  white;
     border-radius: 0px 0px 0px 200px;
     animation-name: blOn;
-    animation-duration: .4s;
+    animation-duration: .5s;
     animation-iteration-count: 1;
 }
 
@@ -195,7 +195,7 @@ main {
     background-image: url("../images/strange-bullseyes.png");
     background-repeat: repeat; 
     background-color: #fa9703;
-    border: 3px solid  white;
+    border: 3px ridge  yellow;
     border-radius: 0px 0px 0px 200px;
     animation-name: blOn;
     animation-duration: .5s;
@@ -218,12 +218,16 @@ h1, h3 {
     color:  #3d4042
 }
 
-.digit {
+.digit, #playerMsg, #footerMsg {
     font-family: 'Audiowide', cursive;
     color: rgb(250, 161, 19);
 }
 
-#newGame, #nextLevel {
+#playerMsg, #footerMsg {
+    font-size: 20px;
+}
+
+#newGame {
     font-size: 16px;
     padding:5px;
     font-family: 'Orbitron', sans-serif;
