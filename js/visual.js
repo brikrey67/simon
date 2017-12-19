@@ -1,3 +1,6 @@
+// great work! There's some room to improve DRYness in your code, especially concerning the button functionality (the button listeners and the present game conditionals). Since each button basically functions the same way, you could write functions that could be used for all of the buttons instead of individual functions for each one. For the listeners you could use a loop that iterates 4 times initializing a listener for the 4 buttons. Using classes that reflect the buttons' number rather than their positions may make it easier to make flexible functions.
+// you had a little bug where if the same button is repeated in the sequence it only flashes once. I changed the timing slightly to prevent this.
+
 let score = 0// score of current game
 let recordScore = 0// best overall score
 let gameSequence = [] // array for game sequence
@@ -135,7 +138,7 @@ function getRandomInt() {
 }
 
 // ********* present game round to player *******
-
+// I changed the remove class timeout to .65 seconds so that the light turns off before the next one lights up. This prevents the bug when the same button comes twice in the sequence.
 function presentGame() {
     for (let ndex=0; ndex<gameSequence.length; ndex++) {
         if (gameSequence[ndex] === 1) {
@@ -143,7 +146,7 @@ function presentGame() {
                 $("#tl").addClass("tlOn") 
                 setTimeout(function(){
                 $("#tl").removeClass("tlOn") 
-                }, 700) 
+                }, 650) 
             }, 700*ndex) 
         }
         else if (gameSequence[ndex] === 2) {
@@ -151,7 +154,7 @@ function presentGame() {
                 $("#tr").addClass("trOn") 
                 setTimeout(function(){
                 $("#tr").removeClass("trOn") 
-                }, 700) 
+                }, 650) 
             }, 700*ndex) 
         }
         else if (gameSequence[ndex] === 3) {
@@ -159,7 +162,7 @@ function presentGame() {
                 $("#br").addClass("brOn") 
                 setTimeout(function(){
                 $("#br").removeClass("brOn") 
-                }, 700) 
+                }, 650) 
             }, 700*ndex) 
         }
         else if (gameSequence[ndex] === 4) {
@@ -167,7 +170,7 @@ function presentGame() {
                 $("#bl").addClass("blOn") 
                 setTimeout(function(){
                 $("#bl").removeClass("blOn") 
-                }, 700) 
+                }, 650) 
             }, 700*ndex) 
         }
     } 
