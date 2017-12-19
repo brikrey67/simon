@@ -1,6 +1,6 @@
 **Project: Simon**
 
-Developer: Brian Reynolds
+**Developer:** Brian Reynolds
 
 **Description**
 
